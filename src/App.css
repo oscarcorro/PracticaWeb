@@ -1,0 +1,589 @@
+/*Estilo para todo el body, para que se ajuste al tamaño de toda la pantalla*/
+body {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*--Contenedor principal en App.jsx para centrar todo--*/
+#container {
+  display: flex;
+  justify-content: center; 
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin: 0 auto; 
+  max-width: 1200px; 
+}
+/*Margen con la parte superior*/
+#container .content {
+  margin-top: 120px;
+}
+
+
+/*---Menu---*/
+/*Contenedor del menú y buscador en la parte superior*/
+.menu-advanced-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #1a1a1a;
+  padding: 15px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);/*Sombreado*/
+  border-bottom: 2px solid #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/*Necesario para el gap entre botones*/
+.menu-advanced-container .menu,
+.menu-advanced-container .advanced-search {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.menu {
+  padding-bottom: 10px;
+}
+
+/* Botones del menú */
+.boton-menu {
+  background-color: #333; /* Color de fondo oscuro */
+  color: #f0f0f0; /* Color de texto claro */
+  padding: 12px 24px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.boton-menu:hover {
+  background-color: #555; /*fondo más claro*/
+  color: #ff4c4c;
+  transform: scale(1.1); /*cambiar tamaño*/
+  border-color: #ff4c4c;
+}
+.boton-menu.active { /*Cuando el botón ha sido pulsado*/
+  background-color: #ff4c4c; 
+  color: #1a1a1a; /*texto oscuro para contrastar*/
+  border-color: #ff4c4c;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(255, 76, 76, 0.6); /* Resplandor alrededor */
+}
+
+
+/*---ListaComicsRecientes---*/
+.contenedor-principal {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+}
+.titulo {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 32px;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /*cuadrícula flexible con columnas con tamaño minimo y maximo*/
+  gap: 24px;
+}
+.comic-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  transition: box-shadow 0.3s;
+}
+.comic-card:hover {
+  transform: scale(1.05); 
+  box-shadow: 0 6px 16px rgba(255, 76, 76, 0.4); 
+  border-color: #ff4c4c; 
+  transition: all 0.3s ease; 
+}
+.comic-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.comic-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover; /*llenar el contenedor completamente*/
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+.comic-description {
+  color: #555;
+}
+
+
+/*---CARRUSEL---*/
+/* Contenedor del carrusel */
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+/* Botones del carrusel */
+.carousel-button {
+  background-color: #ff4c4c;
+  border: none;
+  color: #ffffff;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 8px; 
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+.carousel-button:hover {
+  transform: scale(1.2);
+  background-color: #d23a3a;
+}
+/* Carrusel */
+.carousel {
+  display: flex;
+  gap: 10px;
+  overflow: hidden; /*si se sale se oculta*/
+  width: 100%;
+  max-width: 800px;
+  transition: transform 0.5s ease; 
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+/* Estilo para cada cómic en el carrusel */
+.carousel-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateX(0); 
+  transition: transform 0.5s ease, opacity 0.5s ease; /*transición para el cambio de posición y opacidad */
+  cursor: pointer;
+}
+.carousel-item.center {
+  transform: scale(1.1); /*tamaño del cómic en el centro */
+  opacity: 1; 
+}
+/*Cómics en los laterales */
+.carousel-item.side {
+  transform: scale(0.9); /*ligeramente más pequeños */
+  opacity: 0.6; 
+}
+.carousel-item:hover {
+  transform: scale(1.05); 
+  box-shadow: 0px 4px 12px rgba(255, 76, 76, 0.3);
+}
+.favorite-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 1.5rem;
+  color: #ffffff;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease; 
+  padding: 4px;
+  border-radius: 50%;
+}
+.favorite-icon:hover {
+  color: #ffcc00; 
+  transform: scale(1.2); 
+  background-color: rgba(255, 204, 0, 0.5); 
+}
+/* Estilo para la tarjeta de cómics en favoritos */
+.comic-card {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  transition: box-shadow 0.3s;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 16px auto;
+}
+/* Contenedor de contenido en la tarjeta */
+.comic-content {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+/* Imagen del cómic en la tarjeta */
+.comic-image {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+/* Contenedor de información del cómic (título y botón) */
+.comic-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+/* Título del cómic */
+.comic-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  color: #ffffff;
+}
+/* Botón de quitar de favoritos */
+.remove-favorite-button {
+  background-color: #ff4c4c;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+  align-self: start; 
+}
+.remove-favorite-button:hover {
+  background-color: #d23a3a;
+}
+/* Imagen del cómic */
+.comic-image {
+  width: 120px;
+  height: 180px;
+  border-radius: 8px;
+  transition: filter 0.3s ease;
+}
+/* Cómic del centro */
+.center .comic-image {
+  width: 200px;
+  height: 300px;
+  transition: all 0.3s ease;
+}
+.center .comic-title {
+  margin-top: 10px;
+  color: #ff4c4c;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+/* Cómics laterales */
+.side .comic-image {
+  opacity: 0.6;
+  transform: scale(0.9);
+}
+
+
+/*---CARGANDO---*/
+.loading-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  color: #ff4c4c;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 10px 20px;
+  border-radius: 8px;
+  animation: breathing 1.5s ease-in-out infinite;
+}
+/* Definición de la animación de respiración */
+@keyframes breathing {
+  0%, 100% {
+    opacity: 0.5; /* Inicio y final de la animación con baja opacidad */
+  }
+  50% {
+    opacity: 1; /* Opacidad completa en el centro de la animación */
+  }
+}
+
+
+/*---POPUP DETALLES COMIC*/
+/* Fondo del popup */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+/* Contenedor del contenido del popup */
+.popup-content {
+  background-color: #1a1a1a;
+  color: #ffffff; 
+  padding: 20px;
+  border-radius: 8px;
+  width: 95%;
+  max-width: 700px; 
+  max-height: 90vh; 
+  overflow-y: auto; 
+  position: relative;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+.popup-release-date {
+  font-size: 1rem;
+  color: #cccccc;
+  margin-bottom: 10px;
+}
+/*Botón de cerrar */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #ffffff;
+  font-weight: bold;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.close-button:hover {
+  color: #ff4c4c; 
+  transform: scale(1.2);
+}
+/*Primera fila: Portada y título */
+.popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+/*Imagen de portada del cómic */
+.popup-comic-image {
+  width: 40%;
+  max-width: 200px;
+  border-radius: 8px;
+}
+.popup-title {
+  flex: 1;
+  margin-left: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: left;
+}
+/* Segunda fila: Descripción */
+.popup-description {
+  margin: 20px 0;
+  text-align: left;
+  font-size: 1rem;
+  color: #cccccc;
+}
+/*Carrusel de personajes */
+.character-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+.carousel-arrow {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.carousel-arrow:hover {
+  color: #ffcc00; 
+  transform: scale(1.2); 
+}
+.character-image-container {
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.character-image-container:hover .character-image {
+  transform: scale(1.1); 
+  box-shadow: 0px 4px 12px rgba(255, 204, 0, 0.3);
+}
+.character-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.character-image-container p {
+  margin-top: 8px;
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+
+/*---BUSCADOR AVANZADO---*/
+.advanced-search {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+.advanced-search input, 
+.advanced-search select, 
+.advanced-search button {
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.advanced-search button {
+  background-color: #ff4c4c;
+  color: #ffffff;
+  cursor: pointer;
+}
+.advanced-search button:hover {
+  background-color: #d23a3a;
+}
+
+
+/*Adaptación responsive*/
+@media (max-width: 767px) {
+  /*Adaptar el contenedor principal al 100%*/
+  #container {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  /*Botones máximo 90% para que con el hover no se salgan*/
+  .boton-menu {
+    width: 90%;
+    max-width: 90%;
+    padding: 10px;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+  .boton-menu:hover {
+    max-width: 95%;
+  }
+  /*Búsqueda avanzada cambiada a columna y adaptada al ancho máximo*/
+  .menu-advanced-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+    margin-bottom: 30px;
+  }
+  /*Poner en columna los botones y los filtros de búsqueda y ajustar al ancho*/
+  .menu-advanced-container .menu,
+  .menu-advanced-container .advanced-search {
+    width: 100%;
+    max-width: 100%;
+    flex-direction: column;
+    gap: 10px;
+    box-sizing: border-box;
+    align-items: center;
+  }
+  /* Ajuste para cada input y botón de búsqueda para que tengan el mismo tamaño*/
+  .advanced-search input,
+  .advanced-search select,
+  .advanced-search button {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+  /*Ajustar el contenedor del carruse para que no se salga y no choque arriba*/
+  .carousel-container {
+    margin-top: 150px;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  /*Tamaño del carrousel*/
+  .carousel {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+  /* Ajustar cada ítem en el carrusel */
+  .carousel-item {
+    flex: 0 0 100%; /*Ocupa el 100% del ancho del contenedor*/
+    max-width: 80%; /* Ajusta el ancho para centrarlo mejor */
+    display: flex;
+    justify-content: center;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+  /*Configuración del comic central*/
+  .carousel-item.center .comic-title {
+    font-size: 1rem;
+    margin-top: 10px;
+    text-align: center;
+    color: #ff4c4c;
+  }
+  /*Ajuste de la imagen del cómic y posición relativa para la estrella, no consigo que no se salga*/
+  .carousel-item .comic-image {
+    position: relative; 
+    max-height: 25vh;/*Para evitar que la imagen colapse*/
+    width: 80%; 
+    max-width: 200px;
+    height: auto; 
+    margin: 0 auto;
+    border-radius: 8px; 
+  }
+  /*Debería no salirse de la imagen pero no lo consigo*/
+  .favorite-icon {
+    position: absolute;
+    top: 5px; /* Ajusta para estar dentro del borde de la imagen */
+    right: 5px; /* Ajusta para estar dentro del borde de la imagen */
+    font-size: 1.5rem;
+    color: #ffcc00;
+    z-index: 1; /* Asegura que la estrella esté encima de la imagen */
+    padding: 4px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  /*Ajustar el popup al tamaño maximo*/
+  .popup-content {
+    width: 90%;
+    max-width: 90%;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  .popup-header {
+    flex-direction: column;
+    align-items: center;
+  }
+  .popup-comic-image {
+    width: 80%;
+    max-width: 80%;
+    margin-bottom: 10px;
+  }
+  .titulo, .comic-title, .popup-title {
+    font-size: 1.25rem;
+    text-align: center;
+    margin: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  /*Ajustes adicionales para eliminar márgenes y padding no necesarios, recomendación de ChatGPT por si hay algun fallo */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
